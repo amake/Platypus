@@ -35,6 +35,7 @@
 #import "Common.h"
 #import "PlatypusScriptAnalyser.h"
 #import "NSWorkspace+Additions.h"
+#import "ZipTools.h"
 
 @interface PlatypusAppSpec()
 {
@@ -357,9 +358,24 @@
     
     // copy exec file
     // .app/Contents/Resources/MacOS/ScriptExec
+    
     NSString *execDestinationPath = [macosPath stringByAppendingString:@"/"];
     execDestinationPath = [execDestinationPath stringByAppendingString:self[AppSpecKey_Name]];
-    [FILEMGR copyItemAtPath:execPath toPath:execDestinationPath error:nil];
+    
+    if ([ZipTools isZipFile:execPath]) {
+        // extract binary from zip file
+        BOOL succ = [ZipTools extractFile:CMDLINE_SCRIPTEXEC_BIN_NAME
+                              fromZipFile:execPath
+                                   toPath:execDestinationPath];
+        if (succ == NO) {
+            _error = [NSString stringWithFormat:@"Failed to extract ScriptExec binary to destination '%@'.", execDestinationPath];
+            return FALSE;
+        }
+    } else {
+        // otherwise just copy it over
+        [FILEMGR copyItemAtPath:execPath toPath:execDestinationPath error:nil];
+    }
+    
     NSDictionary *execAttrDict = @{NSFilePosixPermissions: @0755UL};
     [FILEMGR setAttributes:execAttrDict ofItemAtPath:execDestinationPath error:nil];
     

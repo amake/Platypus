@@ -22,7 +22,7 @@ cd "$1"
 
 echo "Copying resources"
 cp "%%CMDLINE_PROGNAME_IN_BUNDLE%%" "%%CMDLINE_TOOL_PATH%%"
-cp "%%CMDLINE_SCRIPTEXEC_BIN_NAME%%" "%%CMDLINE_SCRIPT_EXEC_PATH%%"
+unzip "%%CMDLINE_SCRIPTEXEC_ZIP_NAME%%" -d "%%CMDLINE_SHARE_PATH%%/"
 
 rm "%%CMDLINE_MANPAGE_PATH%%" &> /dev/null
 rm "%%CMDLINE_MANPAGE_PATH%%".gz &> /dev/null

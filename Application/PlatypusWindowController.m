@@ -413,7 +413,7 @@
     
     // we set this specifically
     spec[AppSpecKey_DestinationPath] = appPath;
-    spec[AppSpecKey_ExecutablePath] = [[NSBundle mainBundle] pathForResource:CMDLINE_SCRIPTEXEC_BIN_NAME ofType:nil];
+    spec[AppSpecKey_ExecutablePath] = [[NSBundle mainBundle] pathForResource:CMDLINE_SCRIPTEXEC_ZIP_NAME ofType:nil];
     spec[AppSpecKey_NibPath] = [[NSBundle mainBundle] pathForResource:@"MainMenu.nib" ofType:nil];
     spec[AppSpecKey_SymlinkFiles] = @((BOOL)[createSymlinksCheckbox intValue]);
     spec[AppSpecKey_StripNib] = @((BOOL)[stripNibFileCheckbox intValue]);

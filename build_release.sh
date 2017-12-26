@@ -55,40 +55,39 @@ else
 fi
 
 # Strip executables
-# XCode is not to be trusted in such matters
-echo "Stripping binaries"
+#echo "Stripping binaries"
 
-PLATYPUS_BINARY_PATH="${BUILD_DIR}/${APP_BUNDLE_NAME}/Contents/MacOS/Platypus"
-PLATYPUS_BINARY_PRE_SIZE=`stat -f %z "${PLATYPUS_BINARY_PATH}"`
-strip -x "${PLATYPUS_BINARY_PATH}"
-PLATYPUS_BINARY_POST_SIZE=`stat -f %z "${PLATYPUS_BINARY_PATH}"`
-PLATYPUS_BINARY_SIZE_PERC=$((100-(100*$PLATYPUS_BINARY_POST_SIZE/$PLATYPUS_BINARY_PRE_SIZE)))
-echo "    Platypus (${PLATYPUS_BINARY_PRE_SIZE} --> ${PLATYPUS_BINARY_POST_SIZE}) (-${PLATYPUS_BINARY_SIZE_PERC}%)"
+#PLATYPUS_BINARY_PATH="${BUILD_DIR}/${APP_BUNDLE_NAME}/Contents/MacOS/Platypus"
+#PLATYPUS_BINARY_PRE_SIZE=`stat -f %z "${PLATYPUS_BINARY_PATH}"`
+#strip -x "${PLATYPUS_BINARY_PATH}"
+#PLATYPUS_BINARY_POST_SIZE=`stat -f %z "${PLATYPUS_BINARY_PATH}"`
+#PLATYPUS_BINARY_SIZE_PERC=$((100-(100*$PLATYPUS_BINARY_POST_SIZE/$PLATYPUS_BINARY_PRE_SIZE)))
+#echo "    Platypus (${PLATYPUS_BINARY_PRE_SIZE} --> ${PLATYPUS_BINARY_POST_SIZE}) (-${PLATYPUS_BINARY_SIZE_PERC}%)"
 
-SCRIPTEXEC_BINARY_PATH="${BUILD_DIR}/${APP_BUNDLE_NAME}/Contents/Resources/ScriptExec"
-SCRIPTEXEC_BINARY_PRE_SIZE=`stat -f %z "${SCRIPTEXEC_BINARY_PATH}"`
-strip -x "${SCRIPTEXEC_BINARY_PATH}"
-SCRIPTEXEC_BINARY_POST_SIZE=`stat -f %z "${SCRIPTEXEC_BINARY_PATH}"`
-SCRIPTEXEC_BINARY_SIZE_PERC=$((100-(100*$SCRIPTEXEC_BINARY_POST_SIZE/$SCRIPTEXEC_BINARY_PRE_SIZE)))
-echo "    ScriptExec (${SCRIPTEXEC_BINARY_PRE_SIZE} --> ${SCRIPTEXEC_BINARY_POST_SIZE}) (-${SCRIPTEXEC_BINARY_SIZE_PERC}%)"
+#SCRIPTEXEC_BINARY_PATH="${BUILD_DIR}/${APP_BUNDLE_NAME}/Contents/Resources/ScriptExec"
+#SCRIPTEXEC_BINARY_PRE_SIZE=`stat -f %z "${SCRIPTEXEC_BINARY_PATH}"`
+#strip -x "${SCRIPTEXEC_BINARY_PATH}"
+#SCRIPTEXEC_BINARY_POST_SIZE=`stat -f %z "${SCRIPTEXEC_BINARY_PATH}"`
+#SCRIPTEXEC_BINARY_SIZE_PERC=$((100-(100*$SCRIPTEXEC_BINARY_POST_SIZE/$SCRIPTEXEC_BINARY_PRE_SIZE)))
+#echo "    ScriptExec (${SCRIPTEXEC_BINARY_PRE_SIZE} --> ${SCRIPTEXEC_BINARY_POST_SIZE}) (-${SCRIPTEXEC_BINARY_SIZE_PERC}%)"
 
-CLT_BINARY_PATH="${BUILD_DIR}/${APP_BUNDLE_NAME}/Contents/Resources/platypus_clt"
-CLT_BINARY_PRE_SIZE=`stat -f %z "${CLT_BINARY_PATH}"`
-strip -x "${CLT_BINARY_PATH}"
-CLT_BINARY_POST_SIZE=`stat -f %z "${CLT_BINARY_PATH}"`
-CLT_BINARY_SIZE_PERC=$((100-(100*$CLT_BINARY_POST_SIZE/$CLT_BINARY_PRE_SIZE)))
-echo "    platypus_clt (${CLT_BINARY_PRE_SIZE} --> ${CLT_BINARY_POST_SIZE}) (-${CLT_BINARY_SIZE_PERC}%)"
+#CLT_BINARY_PATH="${BUILD_DIR}/${APP_BUNDLE_NAME}/Contents/Resources/platypus_clt"
+#CLT_BINARY_PRE_SIZE=`stat -f %z "${CLT_BINARY_PATH}"`
+#strip -x "${CLT_BINARY_PATH}"
+#CLT_BINARY_POST_SIZE=`stat -f %z "${CLT_BINARY_PATH}"`
+#CLT_BINARY_SIZE_PERC=$((100-(100*$CLT_BINARY_POST_SIZE/$CLT_BINARY_PRE_SIZE)))
+#echo "    platypus_clt (${CLT_BINARY_PRE_SIZE} --> ${CLT_BINARY_POST_SIZE}) (-${CLT_BINARY_SIZE_PERC}%)"
 
 # Remove previous app folder
 rm -r "${BUILD_DIR}/${APP_FOLDER_NAME}" &> /dev/null
 
-# Create folder and copy app into it
+# Create folder and move app into it
 echo "Creating app folder ${BUILD_DIR}/${APP_FOLDER_NAME}"
 mkdir "${BUILD_DIR}/${APP_FOLDER_NAME}"
 mv "${BUILD_DIR}/${APP_BUNDLE_NAME}" "${BUILD_DIR}${APP_FOLDER_NAME}/"
 
 # Remove DS_Store junk
-find "${BUILD_DIR}${APP_FOLDER_NAME}/" -name ".DS_Store" -exec rm -f "{}" \;
+#find "${BUILD_DIR}${APP_FOLDER_NAME}/" -name ".DS_Store" -exec rm -f "{}" \;
 
 # Create symlink to Readme file
 echo "Creating symlink to Readme file"
@@ -98,7 +97,9 @@ ln -s "${APP_BUNDLE_NAME}/Contents/Resources/Readme.html" "Readme.html"
 # Create zip archive and move to desktop
 echo "Creating application archive ${APP_ZIP_NAME}..."
 cd "${BUILD_DIR}"
-zip -q --symlinks "${APP_ZIP_NAME}" -r "${APP_FOLDER_NAME}"
+#zip -q --symlinks "${APP_ZIP_NAME}" -r "${APP_FOLDER_NAME}"
+ditto -c -k --sequesterRsrc --keepParent "${APP_FOLDER_NAME}" "${APP_ZIP_NAME}"
+
 
 if [ $1 ]; then
     echo "Uploading application archive ..."

@@ -383,14 +383,12 @@
 	<string>Platypus</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>NSSupportsAutomaticTermination</key>
-	<true/>
-	<key>NSSupportsSuddenTermination</key>
-	<true/>
 	<key>SUFeedURL</key>
 	<string>https://sveinbjorn.org/files/appcasts/PlatypusAppcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
+	<key>CFBundleIconFile</key>
+	<string>PlatypusAppIcon</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

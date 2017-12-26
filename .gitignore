@@ -12,7 +12,7 @@ ExampleApps
 *.perspectivev3
 !default.perspectivev3
 xcuserdata
-
+ScriptExec.zip
 ## Other
 *.xccheckout
 *.moved-aside
