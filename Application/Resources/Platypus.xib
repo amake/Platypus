@@ -705,15 +705,6 @@ DQ
                             <menuItem isSeparatorItem="YES" id="11457">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Uninstall Platypus" id="11455">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="uninstallPlatypus:" target="11195" id="11458"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="11100">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
                             <menuItem title="Preferences…" keyEquivalent="," toolTip="Open Platypus Preferences" id="129">
                                 <connections>
                                     <action selector="showWindow:" target="11195" id="11442"/>
